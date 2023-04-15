@@ -14,7 +14,7 @@ Script:
 
 ## Introduction
 
-Welcome to our video presentation on Application Configuration in .NET 7.0. In this presentation, we'll cover the importance of application configuration, setting up the ConfigurationBuilder in a console application, and using appsettings.json and secrets.json files for configuration. We will also explore what is know as the Options pattern. This pattern helps you to structure you configuration keys and values and makes for a cleaner code outcome.
+Welcome to our video presentation on Application Configuration in .NET 7.0. In this presentation, we'll cover the importance of application configuration, setting up the ConfigurationBuilder in a console application, and using appsettings.json and secrets.json files for configuration. We will also explore what is know as the Options pattern. This pattern helps you to structure your configuration keys and values and result in cleaner code.
     
 ## Importance of application configuration
 
@@ -135,6 +135,8 @@ public class SecretSettings
 	public string SuperSecret { get; set; } = default!;
 }
 ```
+
+Note that the ` = default!` at the end of each of the properties implies that the property will be set at runtime. This is required because the `IOptions` pattern requires that the properties are set at runtime.
 
 Modify the `Program.cs` file to the following:
 ```csharp
