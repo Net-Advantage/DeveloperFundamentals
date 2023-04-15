@@ -8,7 +8,6 @@ Outline:
 1.  Creating and setting up a `secrets.json` File
 1.  `ConfigurationBuilder` code in a console application
 1.  Implement the `IOptions` pattern in a console application
-1.  Implement the `IOptionsMonitor` pattern in a console application
 1.  Conclusion
 
 Script:
@@ -174,4 +173,4 @@ __See Also__:
 
 ##  Conclusion
 
-We have demonstrated the importance of application configuration, setting up the ConfigurationBuilder in a .NET 7.0 console application, creating and using `appsettings.json` and `secrets.json` files, and using the Options pattern to provide structure and type safety to our configuration. By effectively managing your application's configuration, you can improve security, maintainability, and deployment flexibility. We hope this presentation has been helpful in understanding the essentials of application configuration in .NET 7.0.
+We have demonstrated the importance of application configuration, setting up the ConfigurationBuilder in a .NET 7.0 console application, creating and using `appsettings.json` and `secrets.json` files, and using the `IOptions` pattern to provide structure and type safety to our configuration. By effectively managing your application's configuration, you can improve security, maintainability, and deployment flexibility. We hope this presentation has been helpful in understanding the essentials of application configuration in .NET 7.0.
