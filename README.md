@@ -1,6 +1,18 @@
 # DeveloperFundamentals
 Developer Fundamentals are what I consider a minimum set of have-to-know aspects of .Net and C# every developer should know and understand.
 
+# In order
+
+- Configuration Fundamentals
+- Dependency Injection Fundamentals
+- Logging Fundamentals
+- Exception Handling Fundamentals
+- xUnit Testing Fundamentals
+- Integration Testing Fundamentals
+- Web API Fundamentals
+- Web Application Fundamentals
+- Blazor WebAssembly Fundamentals
+
 # dotnet CLI
 
 ## Create a solution using the dotnet CLI
