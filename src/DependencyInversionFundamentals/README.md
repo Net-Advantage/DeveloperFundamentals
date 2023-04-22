@@ -199,6 +199,7 @@ I recommend that you use the `GetRequiredService` method to resolve dependencies
 Note that we only need to explicitly resolve the `TheHostService` object. The `TheSingletonService` and `TheTransientService` objects will be resolved automatically by the DI container.
 
 Calling the	`Output` method will output the following:
+
 ```powershell
 TheSingletonService created on: 22/04/2023 9:37:53 pm
 TheSingletonService called on: 22/04/2023 9:37:53 pm
@@ -206,7 +207,7 @@ TheTransientService created on: 22/04/2023 9:37:53 pm
 TheTransientService called on: 22/04/2023 9:37:53 pm
 ```
 
-> the date and time will be different for you.
+> The date and time will be different for you.
 
 Add the following code to the `Program.cs` file:
 
