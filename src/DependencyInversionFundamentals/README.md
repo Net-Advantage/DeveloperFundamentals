@@ -239,4 +239,7 @@ See the 1 second difference between the `TheSingletonService` and `TheTransientS
 
 ## Summary
 
-In this lesson, we learned about the Service Locator pattern and how it can be used to resolve dependencies in .NET applications. We also learned about the different lifetimes of objects in Dependency Injection and how they can be used to optimize performance and manage resources.
+In this lesson, we learned about:
+- Dependency Inversion and why it is important.
+- The Service Locator pattern and how it can be used to resolve dependencies in .NET applications.
+- The different lifetimes of objects in Dependency Injection and how they can be used to optimize performance and manage resources.
