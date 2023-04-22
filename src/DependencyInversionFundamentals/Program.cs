@@ -1,21 +1,18 @@
 ﻿using DependencyInversionFundamentals;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-Console.WriteLine("The host being set up!");
+var services = new ServiceCollection();
+services.AddTransient<TheHostService>();
+services.AddSingleton<TheSingletonService>();
+services.AddTransient<TheTransientService>();
 
-var hostBuilder = Host.CreateApplicationBuilder();
-hostBuilder.Services.AddHostedService<TheHostService>();
-	//.CreateDefaultBuilder()
-	//.ConfigureServices(services =>
-	//{
-	//	services.AddHostedService<TheHostService>();
+var serviceProvider = services.BuildServiceProvider();
 
-	//	services.AddSingleton<TheSingletonService>();
-	//	services.AddTransient<TheTransientService>();
-	//})
-var host = hostBuilder.Build();
+var theHostService = serviceProvider.GetRequiredService<TheHostService>();
+theHostService.Output();
 
-Console.WriteLine("The host is starting up!");
-await host.RunAsync();
-Console.WriteLine("The application has ended!");
+Console.WriteLine("Waiting 1 second...");
+await Task.Delay(1000);
+
+theHostService = serviceProvider.GetRequiredService<TheHostService>();
+theHostService.Output();

@@ -1,4 +1,4 @@
-# Configuration in .NET
+# Configuration Fundamentals in .NET
 
 Outline:
 
@@ -14,7 +14,7 @@ Script:
 
 ## Introduction
 
-Welcome to our video presentation on Application Configuration in .NET 7.0. In this presentation, we will cover the importance of application configuration, setting up the ConfigurationBuilder in a console application, and using appsettings.json and secrets.json files for configuration. We will also explore what is known as the Options pattern. This pattern helps you structure your configuration keys and values, resulting in cleaner code.
+Welcome to our video presentation on `Configuration Fundamentals in .NET`. In this presentation, we will cover the importance of application configuration, setting up the ConfigurationBuilder in a console application, and using appsettings.json and secrets.json files for configuration. We will also explore what is known as the Options pattern. This pattern helps you structure your configuration keys and values, resulting in cleaner code.
     
 ## Importance of application configuration
 

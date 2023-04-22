@@ -1,4 +1,4 @@
-﻿namespace DependencyInversionFundamentals;
+﻿namespace HostBuilderFundamentals;
 
 public class TheScopedService
 {

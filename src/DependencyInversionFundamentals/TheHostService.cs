@@ -1,24 +1,21 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿namespace DependencyInversionFundamentals;
 
-namespace DependencyInversionFundamentals;
-
-public class TheHostService : IHostedService
+public class TheHostService
 {
-	//public TheHostService(
-	//	TheSingletonService theSingletonService,
-	//	TheScopedService theScopedService,
-	//	TheTransientService theTransientService)
-	//{
-		
-	//}
+	private readonly TheSingletonService _theSingletonService;
+	private readonly TheTransientService _theTransientService;
 
-	public async Task StartAsync(CancellationToken cancellationToken)
+	public TheHostService(
+		TheSingletonService theSingletonService,
+		TheTransientService theTransientService)
 	{
-		await Task.CompletedTask;
+		_theSingletonService = theSingletonService;
+		_theTransientService = theTransientService;
 	}
 
-	public async Task StopAsync(CancellationToken cancellationToken)
+	public void Output()
 	{
-		await Task.CompletedTask;
+		_theSingletonService.Output();
+		_theTransientService.Output();
 	}
 }

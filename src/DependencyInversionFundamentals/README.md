@@ -1,4 +1,4 @@
-# Dependency Inversion in .NET
+# Dependency Inversion Fundamentals in .NET
 
 Outline:
 
@@ -6,14 +6,16 @@ Outline:
 1. Understanding Dependency Inversion or Inversion of Control (IoC)
 1. Types of Dependency Inversion
 1. Lifetime of an object
-1. Setting up the `IHostBuilder` for hosting the application
-1. Implement the `IOptions` pattern with Dependency Injection
+1. Setting up Dependency Injection
+1. Resolving Dependencies
 
 Script:
 
+> If you already understand the Theory of Dependency Inversion, skip to the `IServiceCollection` for the code samples.
+
 ## Introduction
 
-Welcome to our video presentation on Dependency Inversion in .NET 7.0. In this presentation, we will cover the importance of dependency inversion, what it is, the different types, and the lifetime of an object. Using a console application, we will also show how to set up the `ServiceCollection` to register your services, and how to use the `ServiceProvider` to resolve dependencies. We will also build on your knowledge of the Options pattern which we introduced in the `Configuration in .Net` lesson.
+Welcome to our video presentation on `Dependency Inversion Fundamentals in .NET`. In this presentation, we will cover the importance of dependency inversion, what it is, the different types, and the lifetime of an object. Using a console application, we will show how to register your services and then how to resolve dependencies. 
 
 ## Understanding Dependency Inversion or Inversion of Control (IoC)
 
@@ -46,9 +48,7 @@ Event Driven programming is a paradigm where the flow of control is determined b
 
 In summary, Dependency Injection, Service Locator, and Event Driven programming are three types of dependency inversion techniques used to achieve Inversion of Control in software design. By using these techniques, developers can create more modular, flexible, and testable applications.
 
-Note:
-
-In .NET, the most common technique used for Dependency Injection is Constructor Injection. This technique involves providing dependencies to an object via its constructor. When the object is instantiated, the required dependencies are passed as arguments to the constructor. This approach ensures that the object has all its dependencies before it starts executing.
+> In .NET, the most common technique used for Dependency Injection is Constructor Injection. This technique involves providing dependencies to an object via its constructor. When the object is instantiated, the required dependencies are passed as arguments to the constructor. This approach ensures that the object has all its dependencies before it starts executing.
 
 While the Service Locator pattern is a valid means for resolving dependencies, it is not recommended for use in .NET applications. The Service Locator pattern is considered an anti-pattern because it introduces a level of indirection that can make it difficult to understand and maintain the code. Instead, it is recommended to use Constructor Injection to provide dependencies to an object.
 
@@ -67,57 +67,175 @@ Scoped lifetime indicates that an object is created once per scope, usually tied
 3. Singleton:
 Singleton lifetime means that only one instance of the object is created and shared across the entire application for the duration of the application's lifetime. Singleton objects are useful when the object needs to maintain a global state or manage shared resources, such as a configuration object or a database connection pool. Since the singleton object persists for the entire application lifetime, it is essential to ensure that it is thread-safe and does not hold resources unnecessarily.
 
+> It is important to note that for a simple console applications like this one, we will not demonstrate `Scoped` lifetime. It will be covered in depth in the `ASP.NET Dependency Inversion Fundamentals` lesson.
+
 In summary, understanding the lifetime of objects in Dependency Injection is crucial for effective resource management and application behavior. By choosing the appropriate lifetime for an object - Transient, Scoped, or Singleton - developers can optimize performance, manage resources, and avoid unexpected issues related to shared state or resource contention.
 
-## `HostBuilder` for creating a hostable application
+## Setting up Dependency Injection
 
-The `HostBuilder` is the entry point for setting up a host. The host is responsible for app startup, object creation, and lifetime management. It creates the `IServiceProvider`, which is used to resolve dependencies, and the `IConfiguration`, responsible for managing your application's settings.
+Before you start install the required Nuget package:
 
-Before using the `HostBuilder`, you need to add the `Microsoft.Extensions.Hosting` NuGet package to your project. The package will add a number of packages that are required to host the default application.
+```powershell
+Microsoft.Extensions.DependencyInjection
+```
 
-You also need to add a file called `TheHostService.cs` with a class that implements the `IHostedService` interface. This interface is used to define the behavior of a service that is hosted by the `HostBuilder`. The `HostBuilder` will call the `StartAsync` method when the host starts, and the `StopAsync` method when the host stops. The `HostBuilder` will also call the `DisposeAsync` method when the host is disposed.
+Create the following files for each class:
+
+### TheSingletonService
+
+This object will be instantiated once for the entire lifetime of the application. Each time it is requested the same intance will be retured.
+
+Create a file called `TheSingletonService.cs` with the following code:
 
 ```csharp
-using Microsoft.Extensions.Hosting;
-
 namespace DependencyInversionFundamentals;
 
-public class TheHostService : IHostedService
+public class TheSingletonService
 {
-	public async Task StartAsync(CancellationToken cancellationToken)
+	private readonly DateTime _createdOn = DateTime.UtcNow;
+	
+	public void Output()
 	{
-		Console.WriteLine("The host is starting up!");
-		await Task.CompletedTask;
-	}
-
-	public async Task StopAsync(CancellationToken cancellationToken)
-	{
-		Console.WriteLine("The host is shutting down!");
-		await Task.CompletedTask;
+		Console.WriteLine($"TheSingletonService created on: {_createdOn}");
+		Console.WriteLine($"TheSingletonService called on: {DateTime.UtcNow}");
 	}
 }
 ```
 
-Now, you can use the `HostBuilder` to create a host. Add this code to the `Program.cs` file:
+### TheTransientService
+
+This object will be instantiated anew each time it is requested.
+
+Create a file called `TheTransientService.cs` with the following code:
+
+```csharp
+namespace DependencyInversionFundamentals;
+
+public class TheTransientService
+{
+	private readonly DateTime _createdOn = DateTime.UtcNow;
+
+	public void Output()
+	{
+		Console.WriteLine($"TheTransientService created on: {_createdOn}");
+		Console.WriteLine($"TheTransientService called on: {DateTime.UtcNow}");
+	}
+}
+```
+
+### TheHostService
+
+This object will depend on `TheSingletonService` and `TheTransientService`.
+
+Create a file called `TheHostService.cs` with the following code:
+
+```csharp
+namespace DependencyInversionFundamentals;
+
+public class TheHostService
+{
+	private readonly TheSingletonService _theSingletonService;
+	private readonly TheTransientService _theTransientService;
+
+	public TheHostService(
+		TheSingletonService theSingletonService,
+		TheTransientService theTransientService)
+	{
+		_theSingletonService = theSingletonService;
+		_theTransientService = theTransientService;
+	}
+
+	public void Output()
+	{
+		_theSingletonService.Output();
+		_theTransientService.Output();
+	}
+}
+```
+
+### Setting up the `IServiceCollection`
+
+The `IServiceCollection` is used to make your container aware of all the dependencies in your application.
+
+In the `Program.cs` file add the following code:
 
 ```csharp
 using DependencyInversionFundamentals;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-Console.WriteLine("The host being set up!");
-
-var hostBuilder = Host.CreateApplicationBuilder();
-hostBuilder.Services.AddHostedService<TheHostService>();
-
-var host = hostBuilder.Build();
-
-Console.WriteLine("The host is starting up!");
-await host.RunAsync();
-Console.WriteLine("The application has ended!");
+var services = new ServiceCollection();
+services.AddTransient<TheHostService>();
+services.AddSingleton<TheSingletonService>();
+services.AddTransient<TheTransientService>();
 ```
 
-The `HostBuilder` is used to configure the host and its services. The `HostBuilder` is created by calling the `CreateDefaultBuilder` method. This method will create a host with default configuration. The `ConfigureServices` method is used to register services with the host's `IServiceCollection`. The `Build` method is used to create the host.
+This code sets up the `ServiceCollection` and then added each of the dependencies in your application.
 
-## Implement the `IOptions` pattern with Dependency Injection
+### Setting up the `IServiceProvider`
 
+The `IServiceProvider` is used to resolve the dependencies in your application. Before using it, the IServiceCollection must be built. This is done by calling the `BuildServiceProvider` method.
+
+In the `Program.cs` file add the following code:
+
+```csharp
+var serviceProvider = services.BuildServiceProvider();
+```
+
+## Resolving dependencies
+
+In this example, we will resolve the `TheHostService` object and then call the `Output` method. As you can see we are using the Service Locator pattern to resolve the `TheHostService` object.
+
+> As previously mentioned, the Service Locator pattern is considered an anti-pattern and should not be used in .NET applications. Instead, it is recommended to use Constructor Injection to provide dependencies to an object.
+
+Add the following code to the `Program.cs` file:
+
+```csharp
+var theHostService = serviceProvider.GetRequiredService<TheHostService>();
+theHostService.Output();
+```
+
+I recommend that you use the `GetRequiredService` method to resolve dependencies. This method will throw an exception if the dependency cannot be resolved. This is useful for debugging and will help you identify any issues with your dependencies.
+
+Note that we only need to explicitly resolve the `TheHostService` object. The `TheSingletonService` and `TheTransientService` objects will be resolved automatically by the DI container.
+
+Calling the	`Output` method will output the following:
+```powershell
+TheSingletonService created on: 22/04/2023 9:37:53 pm
+TheSingletonService called on: 22/04/2023 9:37:53 pm
+TheTransientService created on: 22/04/2023 9:37:53 pm
+TheTransientService called on: 22/04/2023 9:37:53 pm
+```
+
+> the date and time will be different for you.
+
+Add the following code to the `Program.cs` file:
+
+```csharp
+Console.WriteLine("Waiting 1 second...");
+await Task.Delay(1000);
+
+theHostService = serviceProvider.GetRequiredService<TheHostService>();
+theHostService.Output();
+```
+
+This will cause the application to wait for 1 second and then resolve the `TheHostService` object again. The output will be:
+
+```powershell
+TheSingletonService created on: 22/04/2023 9:37:53 pm
+TheSingletonService called on: 22/04/2023 9:37:53 pm
+TheTransientService created on: 22/04/2023 9:37:53 pm
+TheTransientService called on: 22/04/2023 9:37:53 pm
+Waiting 1 second...
+TheSingletonService created on: 22/04/2023 9:37:53 pm
+TheSingletonService called on: 22/04/2023 9:37:54 pm
+TheTransientService created on: 22/04/2023 9:37:54 pm
+TheTransientService called on: 22/04/2023 9:37:54 pm
+```
+
+As you can see, the `TheSingletonService` object was only created once and the `TheTransientService` object was created twice.
+
+See the 1 second difference between the `TheSingletonService` and `TheTransientService` objects.
+
+## Summary
+
+In this lesson, we learned about the Service Locator pattern and how it can be used to resolve dependencies in .NET applications. We also learned about the different lifetimes of objects in Dependency Injection and how they can be used to optimize performance and manage resources.
