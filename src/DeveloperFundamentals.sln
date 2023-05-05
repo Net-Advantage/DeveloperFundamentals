@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInversionFundamen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetConfigurationFundamentals", "AspNetConfigurationFundamentals\AspNetConfigurationFundamentals.csproj", "{5D4D6812-424E-4B93-8745-737CDF6F0388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostBuilderFundamentals", "HostBuilderFundamentals\HostBuilderFundamentals.csproj", "{3A5D13A2-5E96-4973-9DD4-624E86B74F71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostBuilderFundamentals", "HostBuilderFundamentals\HostBuilderFundamentals.csproj", "{3A5D13A2-5E96-4973-9DD4-624E86B74F71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLanguageFundamentals", "CSharpLanguageFundamentals\CSharpLanguageFundamentals.csproj", "{3039227E-8131-4116-9693-DDB868A7AF69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpLanguageFundamentals", "CSharpLanguageFundamentals\CSharpLanguageFundamentals.csproj", "{3039227E-8131-4116-9693-DDB868A7AF69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
