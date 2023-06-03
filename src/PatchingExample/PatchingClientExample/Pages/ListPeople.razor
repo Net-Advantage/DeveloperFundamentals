@@ -1,0 +1,45 @@
+﻿@page "/getPeople"
+@using PatchingModels
+@inject HttpClient Http
+
+<PageTitle>People List</PageTitle>
+
+<h1>People List</h1>
+
+<p>List all people.</p>
+
+@if (people == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>First name</th>
+				<th>Last name</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var person in people)
+			{
+				<tr>
+					<td><a href="/getPerson/@person.Id">@person.Username</a></td>
+					<td>@person.FirstName</td>
+					<td>@person.LastName</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private PersonItemDto[]? people;
+
+	protected override async Task OnInitializedAsync()
+	{
+		people = await Http.GetFromJsonAsync<PersonItemDto[]>("/Patching/getPeople");
+	}
+}

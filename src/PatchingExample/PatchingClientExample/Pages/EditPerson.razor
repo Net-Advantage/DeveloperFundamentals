@@ -1,0 +1,70 @@
+﻿@page "/getPerson/{Id:guid}"
+@using PatchingModels
+@using Nabs.Core.Patching
+@inject HttpClient Http
+
+<PageTitle>Edit Person</PageTitle>
+
+<h1>Edit Person</h1>
+
+<p>Edit a person.</p>
+
+@if (_person == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<EditForm EditContext="@_editContext">
+		<h3>Edit Person Information</h3>
+		<div class="form-group">
+			<label for="Username">Username</label>
+			<InputText class="form-control" id="Username" @bind-Value="@_person.Username" />
+		</div>
+		<div class="form-group">
+			<label for="FirstName">First name</label>
+			<InputText class="form-control" id="FirstName" @bind-Value="@_person.FirstName" />
+		</div>
+		<div class="form-group">
+			<label for="LastName">Last name</label>
+			<InputText class="form-control" id="LastName" @bind-Value="@_person.LastName" />
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary" @onclick="SubmitForm">Save</button>
+		</div>
+	</EditForm>
+}
+
+@code {
+
+	[Parameter]
+	public Guid Id { get; set; }
+
+	private PersonDto _originalPerson = default!;
+	private PersonDto _person = default!;
+
+	private EditContext _editContext = default!;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var personResponse = await Http.GetFromJsonAsync<PersonDto>($"/Patching/getPerson/{Id}");
+
+		if (personResponse is null)
+		{
+			return;
+		}
+
+		_person = personResponse;
+		_editContext = new(_person);
+		_originalPerson = personResponse.DeepClone();
+	}
+
+	private async void SubmitForm()
+	{
+		var patch = _originalPerson.CreatePatchOperations(_person);
+		await Http.PatchAsJsonAsync($"/Patching/patchPerson/{Id}", patch);
+
+		_editContext = new(_person);
+		_originalPerson = _person.DeepClone();
+	}
+}
