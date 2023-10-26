@@ -1,6 +1,6 @@
 ﻿namespace PatchingModels;
 
-public class BookDto
+public partial class BookDto
 {
 	public int Id { get; set; }
 	public Guid PersonId { get; set; }

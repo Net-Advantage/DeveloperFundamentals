@@ -25,7 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nabs.Core.Patching", "Libra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatchingPersistence", "PatchingExample\PatchingPersistence\PatchingPersistence.csproj", "{FF4716D3-C748-47B7-A153-643B3B3EDC42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatchingWebApiExample", "PatchingExample\PatchingWebApiExample\PatchingWebApiExample.csproj", "{38516C88-704E-4C17-845F-B7718CCA2A86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatchingWebApiExample", "PatchingExample\PatchingWebApiExample\PatchingWebApiExample.csproj", "{38516C88-704E-4C17-845F-B7718CCA2A86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTesting", "UnitTesting", "{E0CB3691-AB62-40C9-82EF-C9D0A93C50DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingFundamentals.Services", "UnitTesting\UnitTestingFundamentals.Services\UnitTestingFundamentals.Services.csproj", "{34FAA54D-2D92-4651-88A9-3038158128A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingFundamentals.UnitTests", "UnitTesting\UnitTestingFundamentals.UnitTests\UnitTestingFundamentals.UnitTests.csproj", "{2488FBEA-DB25-4F7E-8148-E22BABEB4F23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +79,14 @@ Global
 		{38516C88-704E-4C17-845F-B7718CCA2A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38516C88-704E-4C17-845F-B7718CCA2A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38516C88-704E-4C17-845F-B7718CCA2A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34FAA54D-2D92-4651-88A9-3038158128A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34FAA54D-2D92-4651-88A9-3038158128A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34FAA54D-2D92-4651-88A9-3038158128A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34FAA54D-2D92-4651-88A9-3038158128A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2488FBEA-DB25-4F7E-8148-E22BABEB4F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2488FBEA-DB25-4F7E-8148-E22BABEB4F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2488FBEA-DB25-4F7E-8148-E22BABEB4F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2488FBEA-DB25-4F7E-8148-E22BABEB4F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +97,8 @@ Global
 		{93B8381C-34C0-41D1-ABD1-CA79C070AAC2} = {912FACA1-1F5E-4E4A-8549-D099D3E62158}
 		{FF4716D3-C748-47B7-A153-643B3B3EDC42} = {2CF05998-F860-48A1-8917-AE33FF5F90C3}
 		{38516C88-704E-4C17-845F-B7718CCA2A86} = {2CF05998-F860-48A1-8917-AE33FF5F90C3}
+		{34FAA54D-2D92-4651-88A9-3038158128A8} = {E0CB3691-AB62-40C9-82EF-C9D0A93C50DC}
+		{2488FBEA-DB25-4F7E-8148-E22BABEB4F23} = {E0CB3691-AB62-40C9-82EF-C9D0A93C50DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DEE6E87D-17D1-49BB-862C-55393CF1FBAB}

@@ -1,6 +1,6 @@
 ﻿namespace PatchingModels;
 
-public class PersonItemDto
+public partial class PersonItemDto
 {
 	public Guid Id { get; set; }
 	public required string Username { get; set; }

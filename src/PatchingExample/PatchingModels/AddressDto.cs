@@ -1,6 +1,6 @@
 ﻿namespace PatchingModels;
 
-public class AddressDto
+public partial class AddressDto
 {
 	public Guid Id { get; set; }
 	public Guid PersonId { get; set; }

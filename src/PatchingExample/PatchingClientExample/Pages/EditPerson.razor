@@ -30,6 +30,14 @@ else
 			<InputText class="form-control" id="LastName" @bind-Value="@_person.LastName" />
 		</div>
 		<div class="form-group">
+			<label for="HourlyRate">Hourly rate</label>
+			<InputNumber class="form-control" id="HourlyRate" @bind-Value="@_person.HourlyRate" />
+		</div>
+		<div class="form-group">
+			<label for="AnnualSalary">AnnualSalary</label>
+			<InputNumber class="form-control" id="AnnualSalary" @bind-Value="@_person.AnnualSalary" readonly />
+		</div>
+		<div class="form-group">
 			<button type="submit" class="btn btn-primary" @onclick="SubmitForm">Save</button>
 		</div>
 	</EditForm>
@@ -62,9 +70,11 @@ else
 	private async void SubmitForm()
 	{
 		var patch = _originalPerson.CreatePatchOperations(_person);
-		await Http.PatchAsJsonAsync($"/Patching/patchPerson/{Id}", patch);
+		var patchResponse = await Http.PatchAsJsonAsync($"/Patching/patchPerson/{Id}", patch);
+		_person = await patchResponse.Content.MergePatchDocument(_person);
 
 		_editContext = new(_person);
 		_originalPerson = _person.DeepClone();
+		StateHasChanged();
 	}
 }

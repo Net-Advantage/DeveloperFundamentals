@@ -1,4 +1,5 @@
-﻿using JsonDiffPatchDotNet;
+﻿using System.Net.Http.Json;
+using JsonDiffPatchDotNet;
 using JsonDiffPatchDotNet.Formatters.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
@@ -45,6 +46,21 @@ public static class PatchingExtensions
 		var result = new JsonPatchDocument<T>();
 		result.Operations.AddRange(operations);
 		return result;
+	}
+
+	public static async Task<T> MergePatchDocument<T>(this HttpContent httpContent, T objectToApplyTo)
+		where T : class, new()
+	{
+		var json = await httpContent.ReadAsStringAsync();
+		var operations = JsonConvert.DeserializeObject<List<Operation<T>>>(json);
+		if (!operations.Any())
+		{
+			return objectToApplyTo;
+		}
+
+		var patch = new JsonPatchDocument<T>();
+		patch.Operations.AddRange(operations!);
+		return patch!.MergePatchDocument(objectToApplyTo);
 	}
 
 	public static T MergePatchDocument<T>(this JsonPatchDocument<T> patch, T objectToApplyTo)

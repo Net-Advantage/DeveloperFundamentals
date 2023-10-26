@@ -1,0 +1,14 @@
+<Project>
+	<!-- Set common properties for all projects -->
+	<PropertyGroup>
+		<Company>Net Advantage Business Solutions</Company>
+		<Authors>Darrel Schreyer</Authors>
+		<Copyright>Copyright © Net Advantage Business Solutions 2023</Copyright>
+
+		<TargetFramework>net8.0</TargetFramework>
+		
+		<LangVersion>preview</LangVersion>
+		
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+</Project>

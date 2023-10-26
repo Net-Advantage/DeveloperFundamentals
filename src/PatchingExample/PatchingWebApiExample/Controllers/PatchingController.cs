@@ -1,7 +1,9 @@
 using Mapster;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Nabs.Core.Patching;
 using PatchingModels;
 using PatchingPersistence;
 
@@ -47,7 +49,9 @@ namespace PatchingWebApiExample.Controllers
 
 		[HttpPatch]
 		[Route("patchPerson/{id}")]
-		public async Task<ActionResult> Patch(Guid id, [FromBody] JsonPatchDocument patch)
+		public async Task<ActionResult<IList<Operation>>> Patch(
+			Guid id, 
+			[FromBody] JsonPatchDocument patch)
 		{
 			var entity = await _dbContext.People.FirstOrDefaultAsync(_ => _.Id == id);
 			if (entity is null)
@@ -56,8 +60,21 @@ namespace PatchingWebApiExample.Controllers
 			}
 
 			patch.ApplyTo(entity);
+
+			var original = entity.DeepClone();
+			entity.Calculate();
 			await _dbContext.SaveChangesAsync();
-			return Ok();
+
+			var result = original.CreatePatchOperations(entity);
+			return Ok(result);
 		}
+	}
+}
+
+public static class PersonCalculator
+{
+	public static void Calculate(this Person entity)
+	{
+		entity.AnnualSalary = entity.HourlyRate * 2080;
 	}
 }
