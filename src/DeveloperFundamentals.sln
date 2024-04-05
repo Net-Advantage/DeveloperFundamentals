@@ -35,13 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestingFundamentals.Uni
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecureApps", "SecureApps", "{3AC69BF1-39A3-401C-BCC9-09DC0D794D1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nabs.SecureApps.Gateway", "SecureApps\Nabs.SecureApps.Gateway\Nabs.SecureApps.Gateway.csproj", "{D30CA611-16F2-4F52-AD02-7353C7554523}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nabs.SecureApps.Gateway", "SecureApps\Nabs.SecureApps.Gateway\Nabs.SecureApps.Gateway.csproj", "{D30CA611-16F2-4F52-AD02-7353C7554523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nabs.SecureApps.Api", "SecureApps\Nabs.SecureApps.Api\Nabs.SecureApps.Api.csproj", "{98DB3D7B-F973-4B2A-82AF-5F9C7EDACFA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nabs.SecureApps.Api", "SecureApps\Nabs.SecureApps.Api\Nabs.SecureApps.Api.csproj", "{98DB3D7B-F973-4B2A-82AF-5F9C7EDACFA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nabs.SecureApps.Contexts", "Nabs.SecureApps.Contexts\Nabs.SecureApps.Contexts.csproj", "{FFF3C11F-33DB-4E77-B0CE-9E13B19433ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nabs.SecureApps.Contexts", "Nabs.SecureApps.Contexts\Nabs.SecureApps.Contexts.csproj", "{FFF3C11F-33DB-4E77-B0CE-9E13B19433ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nabs.SecureApps.App1", "SecureApps\Nabs.SecureApps.App1\Nabs.SecureApps.App1.csproj", "{57D55403-A318-4250-AEE1-DE66D669DAD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nabs.SecureApps.App1", "SecureApps\Nabs.SecureApps.App1\Nabs.SecureApps.App1.csproj", "{57D55403-A318-4250-AEE1-DE66D669DAD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingFundamentals", "LoggingFundamentals\LoggingFundamentals.csproj", "{D12B8397-70D2-4C9F-8C82-2549AB5C0CD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +115,10 @@ Global
 		{57D55403-A318-4250-AEE1-DE66D669DAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57D55403-A318-4250-AEE1-DE66D669DAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57D55403-A318-4250-AEE1-DE66D669DAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12B8397-70D2-4C9F-8C82-2549AB5C0CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12B8397-70D2-4C9F-8C82-2549AB5C0CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12B8397-70D2-4C9F-8C82-2549AB5C0CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12B8397-70D2-4C9F-8C82-2549AB5C0CD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
